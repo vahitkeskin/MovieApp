@@ -1,6 +1,7 @@
 package com.vahitkeskin.movieapp.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -14,7 +15,8 @@ import com.vahitkeskin.movieapp.model.MovieListModel
  * creared on 24.03.2023
  */
 class MovieListAdapter(
-    private val paymentList: List<MovieListModel>
+    private val paymentList: List<MovieListModel>,
+    private val onClickMovieItem: (view: View) -> Unit
 ) : RecyclerView.Adapter<MovieListAdapter.MovieListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieListViewHolder {
@@ -28,6 +30,9 @@ class MovieListAdapter(
 
     override fun onBindViewHolder(holder: MovieListViewHolder, position: Int) {
         val paymentBean: MovieListModel = paymentList[position]
+        holder.itemView.rootView.setOnClickListener {
+            onClickMovieItem.invoke(it)
+        }
         holder.bind(paymentBean)
     }
 
