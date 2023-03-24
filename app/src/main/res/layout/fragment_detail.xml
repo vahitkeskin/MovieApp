@@ -78,6 +78,7 @@
             android:layout_marginStart="10dp"
             android:text="15.06.2021"
             android:textColor="@color/black"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@id/ivDot"
             app:layout_constraintStart_toEndOf="@id/ivDot"
             app:layout_constraintTop_toTopOf="@id/ivDot" />
