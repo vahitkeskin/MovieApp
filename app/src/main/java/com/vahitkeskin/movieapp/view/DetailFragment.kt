@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.bumptech.glide.Glide
 import com.vahitkeskin.movieapp.databinding.FragmentDetailBinding
 
 class DetailFragment : Fragment() {
@@ -17,5 +18,16 @@ class DetailFragment : Fragment() {
     ): View {
         binding = FragmentDetailBinding.inflate(layoutInflater)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        arguments?.let {
+            val image = DetailFragmentArgs.fromBundle(it).demoImage
+            Glide.with(requireContext())
+                .load(image)
+                .into(binding.ivDetail)
+        }
     }
 }

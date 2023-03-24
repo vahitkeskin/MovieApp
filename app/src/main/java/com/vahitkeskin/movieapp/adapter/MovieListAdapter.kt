@@ -16,7 +16,7 @@ import com.vahitkeskin.movieapp.model.MovieListModel
  */
 class MovieListAdapter(
     private val paymentList: List<MovieListModel>,
-    private val onClickMovieItem: (view: View) -> Unit
+    private val onClickMovieItem: (image: String) -> Unit
 ) : RecyclerView.Adapter<MovieListAdapter.MovieListViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieListViewHolder {
@@ -31,7 +31,7 @@ class MovieListAdapter(
     override fun onBindViewHolder(holder: MovieListViewHolder, position: Int) {
         val paymentBean: MovieListModel = paymentList[position]
         holder.itemView.rootView.setOnClickListener {
-            onClickMovieItem.invoke(it)
+            onClickMovieItem.invoke(paymentBean.image)
         }
         holder.bind(paymentBean)
     }

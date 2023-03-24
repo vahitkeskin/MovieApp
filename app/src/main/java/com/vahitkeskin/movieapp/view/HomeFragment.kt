@@ -65,11 +65,12 @@ class HomeFragment : Fragment() {
         }
         binding.imageSlider.setImageList(imageList, ScaleTypes.FIT)
 
+
         val movieListAdapter = MovieListAdapter(
             paymentList = movieListModel,
-            onClickMovieItem = {
-                val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment()
-                Navigation.findNavController(it).navigate(action)
+            onClickMovieItem = { image ->
+                val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(demoImage = image)
+                Navigation.findNavController(view).navigate(action)
             }
         )
         binding.rvMovieList.adapter = movieListAdapter

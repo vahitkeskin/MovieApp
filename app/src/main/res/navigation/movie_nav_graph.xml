@@ -22,5 +22,11 @@
         android:id="@+id/detailFragment"
         android:name="com.vahitkeskin.movieapp.view.DetailFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" />
+        tools:layout="@layout/fragment_detail" >
+        <argument
+            android:name="demoImage"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue='""' />
+    </fragment>
 </navigation>
