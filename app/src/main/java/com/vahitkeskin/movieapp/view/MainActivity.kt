@@ -7,13 +7,14 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.Navigation
 import com.vahitkeskin.movieapp.R
 import com.vahitkeskin.movieapp.databinding.ActivityMainBinding
+import dagger.hilt.android.AndroidEntryPoint
 
 
 /**
  * @authot: Vahit Keskin
  * creared on 24.03.2023
  */
-
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         //Light Mode
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
 
         //Status Bar Transparent
         window.setFlags(

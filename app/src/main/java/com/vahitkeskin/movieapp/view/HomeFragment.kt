@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.denzcoskun.imageslider.constants.ScaleTypes
@@ -12,15 +13,24 @@ import com.denzcoskun.imageslider.models.SlideModel
 import com.vahitkeskin.movieapp.adapter.MovieListAdapter
 import com.vahitkeskin.movieapp.databinding.FragmentHomeBinding
 import com.vahitkeskin.movieapp.model.MovieListModel
+import com.vahitkeskin.movieapp.viewmodel.MovieDetailViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import kotlin.coroutines.CoroutineContext
 
 /**
  * @authot: Vahit Keskin
  * creared on 24.03.2023
  */
-
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
+    private val vm: MovieDetailViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +42,12 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        CoroutineScope(Dispatchers.Main).launch {
+            vm.keywordListFlow.collectLatest {
+                println("Name for result: ${it.body()?.dates}")
+            }
+        }
 
         val movieListModel = ArrayList<MovieListModel>()
         movieListModel.add(

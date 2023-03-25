@@ -1,14 +1,12 @@
 package com.vahitkeskin.movieapp.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.resource.bitmap.CenterCrop
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
 import com.vahitkeskin.movieapp.databinding.ItemMovieListBinding
 import com.vahitkeskin.movieapp.model.MovieListModel
+import com.vahitkeskin.movieapp.util.loadImage
+import com.vahitkeskin.movieapp.util.visibleIf
 
 /**
  * @authot: Vahit Keskin
@@ -41,10 +39,8 @@ class MovieListAdapter(
     class MovieListViewHolder(private val itemBinding: ItemMovieListBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
         fun bind(movieListModel: MovieListModel) {
-            Glide.with(itemView.context)
-                .load(movieListModel.image)
-                .transform(CenterCrop(), RoundedCorners(10))
-                .into(itemBinding.ivListItem)
+            itemBinding.ivListItem loadImage movieListModel.image
+            itemBinding.ivListItem visibleIf true
         }
     }
 }
