@@ -1,8 +1,11 @@
 package com.vahitkeskin.movieapp.di
 
+import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
+import com.vahitkeskin.movieapp.BuildConfig
 import com.vahitkeskin.movieapp.api.MovieService
 import com.vahitkeskin.movieapp.util.Contains.API_TIMEOUT
 import com.vahitkeskin.movieapp.util.Contains.BASE_URL
+import com.vahitkeskin.movieapp.util.FlipperNetworkObject
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,19 +35,27 @@ object NetworkModule {
             retrofit = Retrofit.Builder()
                 .baseUrl(BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
-                .client(client())
+                .client(client(OkHttpClient()))
                 .build()
                 .create(MovieService::class.java)
         }
         return retrofit as MovieService
     }
 
-    private fun client(): OkHttpClient {
-        return with(OkHttpClient.Builder()) {
-            callTimeout(API_TIMEOUT, TimeUnit.SECONDS)
-            connectTimeout(API_TIMEOUT, TimeUnit.SECONDS)
-            readTimeout(API_TIMEOUT, TimeUnit.SECONDS)
-            this.build()
+    @Provides
+    @Singleton
+    fun client(okHttpClient: OkHttpClient): OkHttpClient {
+        return if (BuildConfig.DEBUG && FlipperNetworkObject.networkFlipperPlugin != null) {
+            okHttpClient.newBuilder().addNetworkInterceptor(
+                interceptor = FlipperOkhttpInterceptor(FlipperNetworkObject.networkFlipperPlugin)
+            ).build()
+        } else {
+            with(okHttpClient.newBuilder()) {
+                callTimeout(API_TIMEOUT, TimeUnit.SECONDS)
+                connectTimeout(API_TIMEOUT, TimeUnit.SECONDS)
+                readTimeout(API_TIMEOUT, TimeUnit.SECONDS)
+                this.build()
+            }
         }
     }
 }

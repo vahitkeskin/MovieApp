@@ -18,7 +18,6 @@ import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
 class TheMoviesApplication: Application() {
-
     override fun onCreate() {
         super.onCreate()
         //Facebook Flipper
@@ -32,5 +31,4 @@ class TheMoviesApplication: Application() {
             clint.start()
         }
     }
-
 }
