@@ -1,6 +1,6 @@
 package com.vahitkeskin.movieapp.model.now_playing
 
-data class Result(
+data class ListResult(
     val adult: Boolean,
     val backdrop_path: String,
     val genre_ids: List<Int>,

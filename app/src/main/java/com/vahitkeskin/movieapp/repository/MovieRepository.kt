@@ -1,23 +1,37 @@
 package com.vahitkeskin.movieapp.repository
 
-import androidx.annotation.WorkerThread
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
 import com.vahitkeskin.movieapp.api.MovieService
-import kotlinx.coroutines.Dispatchers
+import com.vahitkeskin.movieapp.model.now_playing.ListResult
+import com.vahitkeskin.movieapp.model.now_playing.NowPlayingResponse
+import com.vahitkeskin.movieapp.paging.MoviePagingAdapter
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
+import javax.inject.Inject
 
 /**
  * @authot: Vahit Keskin
  * creared on 24.03.2023
  */
 
-class MovieRepository constructor(
+class MovieRepository @Inject constructor(
     private val movieService: MovieService
-) : Repository {
+) {
+    fun getList(): Flow<NowPlayingResponse> {
+        return flow {
+            emit(movieService.nowPlayingList())
+        }
+    }
 
-    @WorkerThread
-    fun loadKeywordList() = flow {
-        val response = movieService.fetchKeywords()
-        emit(response)
-    }.flowOn(Dispatchers.IO)
+    fun getMovieList(): Flow<PagingData<ListResult>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = 20,
+                enablePlaceholders = false
+            ),
+            pagingSourceFactory = { MoviePagingAdapter(movieService) }
+        ).flow
+    }
 }

@@ -1,22 +1,23 @@
 package com.vahitkeskin.movieapp.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.denzcoskun.imageslider.constants.ScaleTypes
 import com.denzcoskun.imageslider.models.SlideModel
 import com.vahitkeskin.movieapp.adapter.MovieListAdapter
+import com.vahitkeskin.movieapp.adapter.MovieLoadStateAdapter
 import com.vahitkeskin.movieapp.databinding.FragmentHomeBinding
 import com.vahitkeskin.movieapp.model.MovieListModel
 import com.vahitkeskin.movieapp.viewmodel.MovieDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -28,7 +29,8 @@ import kotlinx.coroutines.launch
 class HomeFragment : Fragment() {
 
     private lateinit var binding: FragmentHomeBinding
-    private val vm: MovieDetailViewModel by viewModels()
+    private val movieDetailViewModel: MovieDetailViewModel by viewModels()
+    private lateinit var movieListAdapter: MovieListAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,10 +43,8 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        CoroutineScope(Dispatchers.Main).launch {
-            vm.keywordListFlow.collectLatest {
-                println("Name for result: ${it.body()?.dates}")
-            }
+        movieDetailViewModel.movie.observe(viewLifecycleOwner) {
+            Log.d(this.javaClass.simpleName, "onViewCreated: ${it.page}")
         }
 
         val movieListModel = ArrayList<MovieListModel>()
@@ -79,15 +79,26 @@ class HomeFragment : Fragment() {
         }
         binding.imageSlider.setImageList(imageList, ScaleTypes.FIT)
 
-
-        val movieListAdapter = MovieListAdapter(
-            paymentList = movieListModel,
+        movieListAdapter = MovieListAdapter(
             onClickMovieItem = { image ->
                 val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(demoImage = image)
                 Navigation.findNavController(view).navigate(action)
             }
         )
-        binding.rvMovieList.adapter = movieListAdapter
+        binding.rvMovieList.adapter = movieListAdapter.withLoadStateFooter(
+            footer = MovieLoadStateAdapter(movieListAdapter)
+        )
         binding.rvMovieList.layoutManager = LinearLayoutManager(context)
+        initObserver()
+    }
+
+    private fun initObserver() {
+        movieDetailViewModel.apply {
+            viewLifecycleOwner.lifecycleScope.launch {
+                getListRV().collectLatest {
+                    movieListAdapter.submitData(it)
+                }
+            }
+        }
     }
 }

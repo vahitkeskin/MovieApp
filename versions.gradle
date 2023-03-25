@@ -6,4 +6,5 @@ ext {
     soloader_version = '0.10.4'
     glide_version = '4.15.0'
     slider_version = '0.1.0'
+    paging_version = '3.1.1'
 }

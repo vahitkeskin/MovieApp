@@ -1,10 +1,8 @@
 package com.vahitkeskin.movieapp.di
 
-import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
-import com.vahitkeskin.movieapp.BuildConfig
 import com.vahitkeskin.movieapp.api.MovieService
-import com.vahitkeskin.movieapp.util.Contains
-import com.vahitkeskin.movieapp.util.FlipperNetworkObject
+import com.vahitkeskin.movieapp.util.Contains.API_TIMEOUT
+import com.vahitkeskin.movieapp.util.Contains.BASE_URL
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,6 +10,7 @@ import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 /**
@@ -23,39 +22,30 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    @Provides
-    @Singleton
-    fun provideRetrofit(
-        okHttpClient: OkHttpClient,
-        gsonConverterFactory: GsonConverterFactory,
-        apiUrl: String
-    ): Retrofit {
-        return Retrofit.Builder().baseUrl(apiUrl)
-            .addConverterFactory(gsonConverterFactory)
-            .client(okHttpClient).build()
-    }
-
-    @Provides
-    fun provideStackoverflowBaseUrl(): String = Contains.BASE_URL
+    private var retrofit: MovieService? = null
 
     @Singleton
     @Provides
-    fun provideGsonConverterFactory(): GsonConverterFactory = GsonConverterFactory.create()
-
-    @Provides
-    @Singleton
-    fun client(): FlipperOkhttpInterceptor {
-        return if (BuildConfig.DEBUG && FlipperNetworkObject.networkFlipperPlugin != null) {
-            FlipperOkhttpInterceptor(FlipperNetworkObject.networkFlipperPlugin)
-        } else {
-            FlipperOkhttpInterceptor(null)
+    //init client with base url
+    fun getClient(): MovieService {
+        if (retrofit == null) {
+            retrofit = Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .client(client())
+                .build()
+                .create(MovieService::class.java)
         }
+        return retrofit as MovieService
     }
 
-    @Provides
-    @Singleton
-    fun provideMovieService(retrofit: Retrofit): MovieService {
-        return retrofit.create(MovieService::class.java)
+    private fun client(): OkHttpClient {
+        return with(OkHttpClient.Builder()) {
+            callTimeout(API_TIMEOUT, TimeUnit.SECONDS)
+            connectTimeout(API_TIMEOUT, TimeUnit.SECONDS)
+            readTimeout(API_TIMEOUT, TimeUnit.SECONDS)
+            this.build()
+        }
     }
 }
 

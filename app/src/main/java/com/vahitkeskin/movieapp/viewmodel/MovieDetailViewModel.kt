@@ -1,11 +1,17 @@
 package com.vahitkeskin.movieapp.viewmodel
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import com.vahitkeskin.movieapp.model.now_playing.ListResult
 import com.vahitkeskin.movieapp.model.now_playing.NowPlayingResponse
 import com.vahitkeskin.movieapp.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.flatMapLatest
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 /**
@@ -18,10 +24,22 @@ class MovieDetailViewModel @Inject constructor(
     private val movieRepository: MovieRepository
 ) : ViewModel() {
 
-    private val movieIdSharedFlow: MutableSharedFlow<NowPlayingResponse> = MutableSharedFlow(replay = 1)
+    private var _movie = MutableLiveData<NowPlayingResponse>()
+    var movie: LiveData<NowPlayingResponse> = _movie
 
-    val keywordListFlow = movieIdSharedFlow.flatMapLatest {
-        movieRepository.loadKeywordList()
+    init {
+        getListViewModel()
     }
 
+    private fun getListViewModel() {
+        viewModelScope.launch {
+            movieRepository.getList().collect {
+                _movie.postValue(it)
+            }
+        }
+    }
+
+    fun getListRV() : Flow<PagingData<ListResult>> {
+        return movieRepository.getMovieList().cachedIn(viewModelScope)
+    }
 }

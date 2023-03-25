@@ -72,4 +72,7 @@ dependencies {
     debugImplementation "com.facebook.flipper:flipper-network-plugin:$flipper_version"
     debugImplementation "com.facebook.flipper:flipper:$flipper_version"
     debugImplementation "com.facebook.soloader:soloader:$soloader_version"
+
+    //Paging 3
+    implementation "androidx.paging:paging-runtime:$paging_version"
 }

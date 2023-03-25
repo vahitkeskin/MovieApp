@@ -1,8 +1,10 @@
 package com.vahitkeskin.movieapp.api
 
 import com.vahitkeskin.movieapp.model.now_playing.NowPlayingResponse
-import retrofit2.Response
+import com.vahitkeskin.movieapp.util.Contains.API_KEY
+import com.vahitkeskin.movieapp.util.Contains.DEFAULT_PAGE
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 /**
  * @authot: Vahit Keskin
@@ -12,6 +14,13 @@ import retrofit2.http.GET
 interface MovieService {
 
     @GET("/3/movie/now_playing")
-    suspend fun fetchKeywords(): Response<NowPlayingResponse>
+    suspend fun nowPlayingList(@Query("api_key") api_key: String = API_KEY): NowPlayingResponse
+
+    //Pagination
+    @GET("/3/movie/upcoming")
+    suspend fun upcomingList(
+        @Query("api_key") api_key: String = API_KEY,
+        @Query("page") page: Int = DEFAULT_PAGE,
+    ): NowPlayingResponse
 
 }
