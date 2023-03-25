@@ -95,7 +95,7 @@ class HomeFragment : Fragment() {
     private fun initObserver() {
         movieDetailViewModel.apply {
             viewLifecycleOwner.lifecycleScope.launch {
-                getListRV().collectLatest {
+                getList.collectLatest {
                     movieListAdapter.submitData(it)
                 }
             }

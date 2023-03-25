@@ -39,7 +39,5 @@ class MovieDetailViewModel @Inject constructor(
         }
     }
 
-    fun getListRV() : Flow<PagingData<ListResult>> {
-        return movieRepository.getMovieList().cachedIn(viewModelScope)
-    }
+    val getList: Flow<PagingData<ListResult>> = movieRepository.getMovieList().cachedIn(viewModelScope)
 }

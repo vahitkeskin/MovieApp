@@ -3,8 +3,7 @@ package com.vahitkeskin.movieapp.di
 import com.facebook.flipper.plugins.network.FlipperOkhttpInterceptor
 import com.vahitkeskin.movieapp.BuildConfig
 import com.vahitkeskin.movieapp.api.MovieService
-import com.vahitkeskin.movieapp.util.Contains.API_TIMEOUT
-import com.vahitkeskin.movieapp.util.Contains.BASE_URL
+import com.vahitkeskin.movieapp.util.Contains
 import com.vahitkeskin.movieapp.util.FlipperNetworkObject
 import dagger.Module
 import dagger.Provides
@@ -25,21 +24,18 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    private var retrofit: MovieService? = null
-
     @Singleton
     @Provides
-    //init client with base url
     fun getClient(): MovieService {
-        if (retrofit == null) {
-            retrofit = Retrofit.Builder()
-                .baseUrl(BASE_URL)
+        val movieService: MovieService by lazy {
+            Retrofit.Builder()
+                .baseUrl(Contains.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .client(client(OkHttpClient()))
                 .build()
                 .create(MovieService::class.java)
         }
-        return retrofit as MovieService
+        return movieService
     }
 
     @Provides
@@ -51,9 +47,9 @@ object NetworkModule {
             ).build()
         } else {
             with(okHttpClient.newBuilder()) {
-                callTimeout(API_TIMEOUT, TimeUnit.SECONDS)
-                connectTimeout(API_TIMEOUT, TimeUnit.SECONDS)
-                readTimeout(API_TIMEOUT, TimeUnit.SECONDS)
+                callTimeout(Contains.API_TIMEOUT, TimeUnit.SECONDS)
+                connectTimeout(Contains.API_TIMEOUT, TimeUnit.SECONDS)
+                readTimeout(Contains.API_TIMEOUT, TimeUnit.SECONDS)
                 this.build()
             }
         }

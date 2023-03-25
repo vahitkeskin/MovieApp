@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.vahitkeskin.movieapp.databinding.ItemMovieListBinding
 import com.vahitkeskin.movieapp.model.now_playing.ListResult
+import com.vahitkeskin.movieapp.util.Contains
 import com.vahitkeskin.movieapp.util.loadImage
 
 /**
@@ -49,11 +50,10 @@ class MovieListAdapter(
     class MovieListViewHolder(private val itemBinding: ItemMovieListBinding) :
         RecyclerView.ViewHolder(itemBinding.root) {
         fun bind(listResult: ListResult) {
-            //https://www.themoviedb.org/t/p/w440_and_h660_face/qNBAXBIQlnOThrVvA6mA2B5ggV6.jpg
-            val url = "https://www.themoviedb.org" + "/t/p/w440_and_h660_face" + listResult.backdrop_path
-            println("Vahit abi naber ya: $url")
-            itemBinding.ivListItem loadImage (url)
-            itemBinding.tvList.text = listResult.title
+            itemBinding.ivListItem loadImage (Contains.IMAGE_URL_BASE_URL + listResult.backdrop_path)
+            itemBinding.tvItemTitle.text = listResult.title
+            itemBinding.tvItemBody.text = listResult.overview
+            itemBinding.tvItemDate.text = listResult.release_date.replace("-",".").reversed()
         }
     }
 }
