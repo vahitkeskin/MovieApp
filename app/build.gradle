@@ -50,10 +50,10 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 
     //SLIDER
-    implementation 'com.github.denzcoskun:ImageSlideshow:0.1.0'
+    implementation "com.github.denzcoskun:ImageSlideshow:$slider_version"
 
     //Glide
-    implementation 'com.github.bumptech.glide:glide:4.15.0'
+    implementation "com.github.bumptech.glide:glide:$glide_version"
 
     //Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
@@ -71,5 +71,5 @@ dependencies {
     //Flipper
     debugImplementation "com.facebook.flipper:flipper-network-plugin:$flipper_version"
     debugImplementation "com.facebook.flipper:flipper:$flipper_version"
-    debugImplementation 'com.facebook.soloader:soloader:0.10.4'
+    debugImplementation "com.facebook.soloader:soloader:$soloader_version"
 }
