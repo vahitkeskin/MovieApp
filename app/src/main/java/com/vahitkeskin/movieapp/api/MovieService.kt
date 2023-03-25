@@ -3,7 +3,6 @@ package com.vahitkeskin.movieapp.api
 import com.vahitkeskin.movieapp.model.now_playing.NowPlayingResponse
 import retrofit2.Response
 import retrofit2.http.GET
-import retrofit2.http.Path
 
 /**
  * @authot: Vahit Keskin
