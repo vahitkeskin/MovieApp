@@ -15,7 +15,14 @@ import java.util.*
  * creared on 24.03.2023
  */
 
-infix fun ImageView.loadImage(url: String) {
+fun ImageView.loadImage(url: String) {
+    Glide.with(this.context)
+        .load(url)
+        .placeholder(R.drawable.ic_no_photo)
+        .into(this)
+}
+
+infix fun ImageView.loadImageCornerRadius(url: String) {
     Glide.with(this.context)
         .load(url)
         .placeholder(R.drawable.ic_no_photo)
