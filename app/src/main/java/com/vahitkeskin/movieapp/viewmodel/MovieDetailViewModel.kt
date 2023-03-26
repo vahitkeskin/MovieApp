@@ -24,17 +24,17 @@ class MovieDetailViewModel @Inject constructor(
     private val movieRepository: MovieRepository
 ) : ViewModel() {
 
-    private var _movie = MutableLiveData<NowPlayingResponse>()
-    var movie: LiveData<NowPlayingResponse> = _movie
+    private var _nowPlaying = MutableLiveData<NowPlayingResponse>()
+    var nowPlaying: LiveData<NowPlayingResponse> = _nowPlaying
 
     init {
-        getListViewModel()
+        getNowPlaying()
     }
 
-    private fun getListViewModel() {
+    private fun getNowPlaying() {
         viewModelScope.launch {
-            movieRepository.getList().collect {
-                _movie.postValue(it)
+            movieRepository.sliderList().collect {
+                _nowPlaying.postValue(it)
             }
         }
     }

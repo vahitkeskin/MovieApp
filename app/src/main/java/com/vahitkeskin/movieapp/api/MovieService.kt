@@ -14,7 +14,7 @@ import retrofit2.http.Query
 interface MovieService {
 
     @GET("/3/movie/now_playing")
-    suspend fun nowPlayingList(@Query("api_key") api_key: String = API_KEY): NowPlayingResponse
+    suspend fun nowPlayingSlider(@Query("api_key") api_key: String = API_KEY): NowPlayingResponse
 
     //Pagination
     @GET("/3/movie/upcoming")

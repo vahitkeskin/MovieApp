@@ -19,9 +19,9 @@ import javax.inject.Inject
 class MovieRepository @Inject constructor(
     private val movieService: MovieService
 ) {
-    fun getList(): Flow<NowPlayingResponse> {
+    fun sliderList(): Flow<NowPlayingResponse> {
         return flow {
-            emit(movieService.nowPlayingList())
+            emit(movieService.nowPlayingSlider())
         }
     }
 

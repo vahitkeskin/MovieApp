@@ -42,7 +42,7 @@ class MovieListAdapter(
     override fun onBindViewHolder(holder: MovieListViewHolder, position: Int) {
         val listResult = getItem(position) as ListResult
         holder.itemView.rootView.setOnClickListener {
-            onClickMovieItem.invoke(listResult.backdrop_path)
+            onClickMovieItem.invoke(Contains.IMAGE_URL_BASE_URL + listResult.backdrop_path)
         }
         holder.bind(listResult)
     }
