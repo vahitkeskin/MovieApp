@@ -5,9 +5,10 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CenterCrop
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.request.RequestOptions
 import com.vahitkeskin.movieapp.R
-
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 
 /**
  * @authot: Vahit Keskin
@@ -32,4 +33,19 @@ fun View.myGone() {
 
 infix fun View.visibleIf(boolean: Boolean) {
     if (boolean) this.myVisible() else this.myGone()
+}
+
+fun String.dateArrangement(): String? {
+    val inputPattern = "yyyy.mm.dd"
+    val outputPattern = "dd.mm.yyyy"
+    val inputFormat = SimpleDateFormat(inputPattern)
+    val outputFormat = SimpleDateFormat(outputPattern)
+    var str: String? = null
+    try {
+        val date: Date = inputFormat.parse(this)
+        str = outputFormat.format(date)
+    } catch (e: ParseException) {
+        e.printStackTrace()
+    }
+    return str
 }

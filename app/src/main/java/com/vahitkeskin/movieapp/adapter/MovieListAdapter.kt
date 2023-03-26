@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.vahitkeskin.movieapp.databinding.ItemMovieListBinding
 import com.vahitkeskin.movieapp.model.now_playing.ListResult
 import com.vahitkeskin.movieapp.util.Contains
+import com.vahitkeskin.movieapp.util.dateArrangement
 import com.vahitkeskin.movieapp.util.loadImage
 
 /**
@@ -53,7 +54,7 @@ class MovieListAdapter(
             itemBinding.ivListItem loadImage (Contains.IMAGE_URL_BASE_URL + listResult.backdrop_path)
             itemBinding.tvItemTitle.text = listResult.title
             itemBinding.tvItemBody.text = listResult.overview
-            itemBinding.tvItemDate.text = listResult.release_date.replace("-",".").reversed()
+            itemBinding.tvItemDate.text = listResult.release_date.replace("-",".").dateArrangement()
         }
     }
 }
