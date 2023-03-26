@@ -4,8 +4,8 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.vahitkeskin.movieapp.api.MovieService
-import com.vahitkeskin.movieapp.model.now_playing.ListResult
-import com.vahitkeskin.movieapp.model.now_playing.NowPlayingResponse
+import com.vahitkeskin.movieapp.model.ListResult
+import com.vahitkeskin.movieapp.model.NowPlayingResponse
 import com.vahitkeskin.movieapp.paging.MoviePagingAdapter
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

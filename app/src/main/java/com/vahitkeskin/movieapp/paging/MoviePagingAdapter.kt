@@ -3,7 +3,7 @@ package com.vahitkeskin.movieapp.paging
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.vahitkeskin.movieapp.api.MovieService
-import com.vahitkeskin.movieapp.model.now_playing.ListResult
+import com.vahitkeskin.movieapp.model.ListResult
 import com.vahitkeskin.movieapp.util.Contains.DEFAULT_PAGE
 import java.io.IOException
 import javax.inject.Inject

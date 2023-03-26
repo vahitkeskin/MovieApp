@@ -6,7 +6,7 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.vahitkeskin.movieapp.databinding.ItemMovieListBinding
-import com.vahitkeskin.movieapp.model.now_playing.ListResult
+import com.vahitkeskin.movieapp.model.ListResult
 
 /**
  * @authot: Vahit Keskin

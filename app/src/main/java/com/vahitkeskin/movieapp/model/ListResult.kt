@@ -1,4 +1,4 @@
-package com.vahitkeskin.movieapp.model.now_playing
+package com.vahitkeskin.movieapp.model
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize

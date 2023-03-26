@@ -1,4 +1,4 @@
-package com.vahitkeskin.movieapp.model.now_playing
+package com.vahitkeskin.movieapp.model
 
 data class Dates(
     val maximum: String,

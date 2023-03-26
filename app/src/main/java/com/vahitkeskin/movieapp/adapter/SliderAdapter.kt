@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.smarteist.autoimageslider.SliderViewAdapter
 import com.vahitkeskin.movieapp.databinding.SliderItemBinding
-import com.vahitkeskin.movieapp.model.now_playing.ListResult
+import com.vahitkeskin.movieapp.model.ListResult
 import com.vahitkeskin.movieapp.util.Contains
 import com.vahitkeskin.movieapp.util.loadImage
 

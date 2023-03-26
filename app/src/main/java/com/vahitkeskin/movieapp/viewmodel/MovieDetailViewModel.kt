@@ -6,8 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import com.vahitkeskin.movieapp.model.now_playing.ListResult
-import com.vahitkeskin.movieapp.model.now_playing.NowPlayingResponse
+import com.vahitkeskin.movieapp.model.ListResult
+import com.vahitkeskin.movieapp.model.NowPlayingResponse
 import com.vahitkeskin.movieapp.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow

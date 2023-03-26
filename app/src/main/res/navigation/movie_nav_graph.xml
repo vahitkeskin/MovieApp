@@ -25,6 +25,6 @@
         tools:layout="@layout/fragment_detail" >
         <argument
             android:name="listResult"
-            app:argType="com.vahitkeskin.movieapp.model.now_playing.ListResult" />
+            app:argType="com.vahitkeskin.movieapp.model.ListResult" />
     </fragment>
 </navigation>

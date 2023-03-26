@@ -15,7 +15,7 @@ import com.vahitkeskin.movieapp.adapter.MovieListAdapter
 import com.vahitkeskin.movieapp.adapter.MovieLoadStateAdapter
 import com.vahitkeskin.movieapp.adapter.SliderAdapter
 import com.vahitkeskin.movieapp.databinding.FragmentHomeBinding
-import com.vahitkeskin.movieapp.model.now_playing.ListResult
+import com.vahitkeskin.movieapp.model.ListResult
 import com.vahitkeskin.movieapp.viewmodel.MovieDetailViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
