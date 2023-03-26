@@ -14,7 +14,8 @@ import com.vahitkeskin.movieapp.util.loadImage
  */
 
 class SliderAdapter(
-    private val list: ArrayList<ListResult>
+    private val list: ArrayList<ListResult>,
+    private val onClickMovieItem: (image: ListResult) -> Unit
 ) : SliderViewAdapter<SliderAdapter.Holder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup): Holder {
@@ -39,6 +40,9 @@ class SliderAdapter(
             binding.imageView.loadImage(Contains.IMAGE_URL_BASE_URL + listResult.backdrop_path)
             binding.tvTitle.text = listResult.title
             binding.tvOverview.text = listResult.overview
+            binding.root.setOnClickListener {
+                onClickMovieItem.invoke(listResult)
+            }
         }
     }
 }

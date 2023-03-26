@@ -28,6 +28,8 @@
             android:layout_height="wrap_content"
             tools:text="The Great Beauty (2013)"
             android:textColor="@color/black"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:textSize="18sp"
             android:textStyle="bold" />
 

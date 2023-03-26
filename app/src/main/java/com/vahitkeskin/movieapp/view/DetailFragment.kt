@@ -1,6 +1,7 @@
 package com.vahitkeskin.movieapp.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +29,7 @@ class DetailFragment : Fragment() {
         arguments?.let {
             val listResult = DetailFragmentArgs.fromBundle(it).listResult
             binding.ivDetail.loadImage(Contains.IMAGE_URL_BASE_URL + listResult.backdrop_path)
+            Log.d(this.javaClass.simpleName, "binding ivDetail loadImage: ${Contains.IMAGE_URL_BASE_URL + listResult.backdrop_path}")
             binding.tvImdbPoint.text = listResult.vote_average.toString()
             binding.tvImdbDate.text = listResult.release_date.replace("-",".").dateArrangement()
             binding.tvTitle.text = listResult.title

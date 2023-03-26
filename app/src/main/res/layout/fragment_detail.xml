@@ -13,7 +13,7 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="@drawable/moonrise_kingdom"
-        android:scaleType="fitXY" />
+        android:scaleType="matrix" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

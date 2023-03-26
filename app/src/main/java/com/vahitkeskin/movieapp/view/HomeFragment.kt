@@ -31,7 +31,6 @@ class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private val movieDetailViewModel: MovieDetailViewModel by viewModels()
     private lateinit var movieListAdapter: MovieListAdapter
-    private val TAG = this.javaClass.simpleName
     private var listResult = ArrayList<ListResult>()
 
     override fun onCreateView(
@@ -48,7 +47,12 @@ class HomeFragment : Fragment() {
         movieDetailViewModel.nowPlaying.observe(viewLifecycleOwner) {
             it.results.forEach { list ->
                 listResult.add(list)
-                val sliderAdapter = SliderAdapter(listResult)
+                val sliderAdapter = SliderAdapter(
+                    list = listResult,
+                    onClickMovieItem = { listResult ->
+                        goToDetailScreen(listResult,view)
+                    }
+                )
                 binding.imageSlider.setIndicatorAnimation(IndicatorAnimationType.WORM)
                 binding.imageSlider.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION)
                 binding.imageSlider.startAutoCycle()
@@ -58,8 +62,7 @@ class HomeFragment : Fragment() {
 
         movieListAdapter = MovieListAdapter(
             onClickMovieItem = { listResult ->
-                val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(listResult = listResult)
-                Navigation.findNavController(view).navigate(action)
+                goToDetailScreen(listResult,view)
             }
         )
         binding.rvMovieList.adapter = movieListAdapter.withLoadStateFooter(
@@ -67,6 +70,11 @@ class HomeFragment : Fragment() {
         )
         binding.rvMovieList.layoutManager = LinearLayoutManager(context)
         initObserver()
+    }
+
+    private fun goToDetailScreen(listResult: ListResult, view: View) {
+        val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(listResult = listResult)
+        Navigation.findNavController(view).navigate(action)
     }
 
     private fun initObserver() {
