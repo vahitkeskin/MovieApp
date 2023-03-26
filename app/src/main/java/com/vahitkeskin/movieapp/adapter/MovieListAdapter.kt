@@ -7,9 +7,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.vahitkeskin.movieapp.databinding.ItemMovieListBinding
 import com.vahitkeskin.movieapp.model.now_playing.ListResult
-import com.vahitkeskin.movieapp.util.Contains
-import com.vahitkeskin.movieapp.util.dateArrangement
-import com.vahitkeskin.movieapp.util.loadImageCornerRadius
 
 /**
  * @authot: Vahit Keskin
@@ -42,19 +39,12 @@ class MovieListAdapter(
 
     override fun onBindViewHolder(holder: MovieListViewHolder, position: Int) {
         val listResult = getItem(position) as ListResult
+        holder.itemBinding.listResult = listResult
         holder.itemView.rootView.setOnClickListener {
             onClickMovieItem.invoke(listResult)
         }
-        holder.bind(listResult)
     }
 
-    class MovieListViewHolder(private val itemBinding: ItemMovieListBinding) :
-        RecyclerView.ViewHolder(itemBinding.root) {
-        fun bind(listResult: ListResult) {
-            itemBinding.ivListItem loadImageCornerRadius (Contains.IMAGE_URL_BASE_URL + listResult.backdrop_path)
-            itemBinding.tvItemTitle.text = listResult.title
-            itemBinding.tvItemBody.text = listResult.overview
-            itemBinding.tvItemDate.text = listResult.release_date.replace("-",".").dateArrangement()
-        }
-    }
+    class MovieListViewHolder(val itemBinding: ItemMovieListBinding) :
+        RecyclerView.ViewHolder(itemBinding.root)
 }

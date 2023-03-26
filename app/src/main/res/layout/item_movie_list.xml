@@ -1,65 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center"
-    android:orientation="horizontal"
-    android:padding="10dp">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <ImageView
-        android:id="@+id/ivListItem"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:scaleType="centerCrop"
-        tools:background="@drawable/bg_demo_image" />
+    <data>
+        <variable
+            name="listResult"
+            type="com.vahitkeskin.movieapp.model.now_playing.ListResult" />
+    </data>
 
     <LinearLayout
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginHorizontal="15dp"
-        android:layout_weight="10"
-        android:orientation="vertical">
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dp">
 
-        <TextView
-            android:id="@+id/tvItemTitle"
+        <ImageView
+            android:id="@+id/ivListItem"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:scaleType="centerCrop"
+            android:movieImage="@{listResult.backdrop_path}"
+            tools:background="@drawable/bg_demo_image" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginHorizontal="15dp"
+            android:layout_weight="10"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvItemTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="@{listResult.title}"
+                tools:text="The Great Beauty (2013)" />
+
+            <TextView
+                android:id="@+id/tvItemBody"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginVertical="5dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="@{listResult.overview}"
+                android:textColor="@color/light_grey"
+                android:textSize="14sp"
+                tools:text="Lorem Ipsum, dizgi ve baskı endüstrisinde kullanılan mıgır metinlerdir. Lorem Ipsum, adı bilinmeyen bir matbaacının bir hurufat numune kitabı oluşturmak üzere bir yazı galerisini alarak karıştırdığı" />
+
+            <TextView
+                android:movieCorrectedDate="@{listResult.release_date}"
+                android:id="@+id/tvItemDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:ellipsize="end"
+                android:maxLines="3"
+                android:textColor="@color/light_grey"
+                android:textSize="14sp"
+                tools:text="15.06.2021" />
+
+        </LinearLayout>
+
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="The Great Beauty (2013)"
-            android:textColor="@color/black"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/tvItemBody"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginVertical="5dp"
-            android:ellipsize="end"
-            android:maxLines="2"
-            tools:text="Lorem Ipsum, dizgi ve baskı endüstrisinde kullanılan mıgır metinlerdir. Lorem Ipsum, adı bilinmeyen bir matbaacının bir hurufat numune kitabı oluşturmak üzere bir yazı galerisini alarak karıştırdığı"
-            android:textColor="@color/light_grey"
-            android:textSize="14sp" />
-
-        <TextView
-            android:id="@+id/tvItemDate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:ellipsize="end"
-            android:maxLines="3"
-            tools:text="15.06.2021"
-            android:textColor="@color/light_grey"
-            android:textSize="14sp" />
+            android:background="@drawable/ic_ok" />
 
     </LinearLayout>
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/ic_ok" />
-
-</LinearLayout>
+</layout>
