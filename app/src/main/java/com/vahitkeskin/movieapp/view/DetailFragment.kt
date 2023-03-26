@@ -8,6 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.bumptech.glide.Glide
 import com.vahitkeskin.movieapp.databinding.FragmentDetailBinding
+import com.vahitkeskin.movieapp.util.Contains
+import com.vahitkeskin.movieapp.util.dateArrangement
 import com.vahitkeskin.movieapp.viewmodel.MovieDetailViewModel
 
 class DetailFragment : Fragment() {
@@ -26,10 +28,15 @@ class DetailFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.let {
-            val image = DetailFragmentArgs.fromBundle(it).demoImage
+            val listResult = DetailFragmentArgs.fromBundle(it).listResult
             Glide.with(requireContext())
-                .load(image)
+                .load(Contains.IMAGE_URL_BASE_URL +  listResult.backdrop_path)
                 .into(binding.ivDetail)
+
+            binding.tvImdbPoint.text = listResult.vote_average.toString()
+            binding.tvImdbDate.text = listResult.release_date.replace("-",".").dateArrangement()
+            binding.tvTitle.text = listResult.title
+            binding.tvDetail.text = listResult.overview
         }
     }
 }

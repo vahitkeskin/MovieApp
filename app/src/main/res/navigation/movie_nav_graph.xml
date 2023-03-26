@@ -24,9 +24,7 @@
         android:label="fragment_detail"
         tools:layout="@layout/fragment_detail" >
         <argument
-            android:name="demoImage"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue='' />
+            android:name="listResult"
+            app:argType="com.vahitkeskin.movieapp.model.now_playing.ListResult" />
     </fragment>
 </navigation>

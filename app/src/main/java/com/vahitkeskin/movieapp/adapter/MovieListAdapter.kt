@@ -16,7 +16,7 @@ import com.vahitkeskin.movieapp.util.loadImage
  * creared on 24.03.2023
  */
 class MovieListAdapter(
-    private val onClickMovieItem: (image: String) -> Unit
+    private val onClickMovieItem: (image: ListResult) -> Unit
 ) : PagingDataAdapter<ListResult, MovieListAdapter.MovieListViewHolder>(LIST_COMPARATOR) {
 
     companion object {
@@ -43,7 +43,7 @@ class MovieListAdapter(
     override fun onBindViewHolder(holder: MovieListViewHolder, position: Int) {
         val listResult = getItem(position) as ListResult
         holder.itemView.rootView.setOnClickListener {
-            onClickMovieItem.invoke(Contains.IMAGE_URL_BASE_URL + listResult.backdrop_path)
+            onClickMovieItem.invoke(listResult)
         }
         holder.bind(listResult)
     }

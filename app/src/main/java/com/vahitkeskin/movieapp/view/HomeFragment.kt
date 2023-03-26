@@ -57,8 +57,8 @@ class HomeFragment : Fragment() {
         }
 
         movieListAdapter = MovieListAdapter(
-            onClickMovieItem = { image ->
-                val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(demoImage = image)
+            onClickMovieItem = { listResult ->
+                val action = HomeFragmentDirections.actionHomeFragmentToDetailFragment(listResult = listResult)
                 Navigation.findNavController(view).navigate(action)
             }
         )

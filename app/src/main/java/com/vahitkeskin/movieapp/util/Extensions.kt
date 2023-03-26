@@ -36,13 +36,11 @@ infix fun View.visibleIf(boolean: Boolean) {
 }
 
 fun String.dateArrangement(): String? {
-    val inputPattern = "yyyy.mm.dd"
-    val outputPattern = "dd.mm.yyyy"
-    val inputFormat = SimpleDateFormat(inputPattern)
-    val outputFormat = SimpleDateFormat(outputPattern)
+    val inputFormat = SimpleDateFormat(Contains.INPUT_PATTERN, Locale.getDefault())
+    val outputFormat = SimpleDateFormat(Contains.OUTPUT_PATTERN, Locale.getDefault())
     var str: String? = null
     try {
-        val date: Date = inputFormat.parse(this)
+        val date = inputFormat.parse(this) as Date
         str = outputFormat.format(date)
     } catch (e: ParseException) {
         e.printStackTrace()
